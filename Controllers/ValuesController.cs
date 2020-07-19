@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FriendApp.API.Controllers.Models;
 using FriendApp.API.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Controllers
 {
@@ -20,18 +21,18 @@ namespace DatingApp.API.Controllers
         }
         // GET api/values
         [HttpGet]
-        public IActionResult GetValues()
+        public async Task<IActionResult> GetValues()
         {
-            List<Value> values = _context.Values.ToList();
+            List<Value> values = await _context.Values.ToListAsync();
 
             return Ok(values);
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public IActionResult GetValue(int id)
+        public async Task<IActionResult> GetValue(int id)
         {
-            Value value = _context.Values.FirstOrDefault(x => x.Id == id);
+            Value value = await _context.Values.FirstOrDefaultAsync(x => x.Id == id);
 
             return Ok(value);
         }
